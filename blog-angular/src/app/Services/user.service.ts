@@ -8,6 +8,8 @@ import { global } from './global';
 export class UserService {
 
     public url: string;
+    public identity;
+    public token;
 
     constructor(
         // tslint:disable-next-line: variable-name
@@ -47,5 +49,33 @@ export class UserService {
 
         // tslint:disable-next-line: object-literal-shorthand
         return this._http.post(this.url + 'login', params, {headers: headers});
+    }
+
+    getIdentity() {
+        // tslint:disable-next-line: prefer-const
+        let identity = JSON.parse(localStorage.getItem('identity'));
+
+        // tslint:disable-next-line: triple-equals
+        if ( identity && identity != 'undefined') {
+         this.identity = identity;
+        } else {
+            this.identity = null;
+        }
+
+        return this.identity;
+    }
+
+    getToken() {
+        // tslint:disable-next-line: prefer-const
+        let token = localStorage.getItem('token');
+        // tslint:disable-next-line: triple-equals
+        if ( token && token != 'undefined') {
+            this.token = token;
+        } else {
+            this.token = null;
+        }
+
+        return this.token;
+
     }
 }

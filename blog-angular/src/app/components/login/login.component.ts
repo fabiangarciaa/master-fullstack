@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user';
 import { UserService } from '../../Services/user.service';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -16,13 +17,22 @@ export class LoginComponent implements OnInit {
   public status: string;
   public token;
   public identity;
-  // tslint:disable-next-line: variable-name
-  constructor(private _userService: UserService) {
+
+  constructor(
+    // tslint:disable-next-line: variable-name
+    private _userService: UserService,
+    // tslint:disable-next-line: variable-name
+    private _router: Router,
+    // tslint:disable-next-line: variable-name
+    private _route: ActivatedRoute
+    ) {
     this.page_title = 'Identificate';
     this.user = new User(1, '', '', 'ROLE_USER', '', '', '', '');
   }
 
   ngOnInit() {
+    // Se ejecuta siempre que yo cargue este componente y cierra sesion solo cuando le llega el parametro Sure por la URL
+    this.logout();
   }
 
   onSubmit(form) {
@@ -45,6 +55,9 @@ export class LoginComponent implements OnInit {
              // PERSISTIR DATOS USUARIO IDENTIFICADO
              localStorage.setItem('token', this.token);
              localStorage.setItem('identity', JSON.stringify(this.identity));
+
+             // REDIRECCION A INICIO
+             this._router.navigate(['inicio']);
             },
             error => {
               this.status = 'error';
@@ -64,6 +77,25 @@ export class LoginComponent implements OnInit {
         console.log(<any> error);
       }
     );
+  }
+
+  logout() {
+    this._route.params.subscribe( params => {
+    // tslint:disable-next-line: no-string-literal
+    const logout = +params['sure'];
+
+    // tslint:disable-next-line: triple-equals
+    if (logout == 1) {
+        localStorage.removeItem('identity');
+        localStorage.removeItem('token');
+
+        this.identity = null;
+        this.token = null;
+
+        // REDIRECCION A INICIO
+        this._router.navigate(['inicio']);
+    }
+    } );
   }
 
 }
