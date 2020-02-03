@@ -17,8 +17,8 @@
                 <li class="nav-item active">
                     <a class="nav-link" [routerLink]="['/inicio']">Inicio <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Categorias</a>
+                <li class="nav-item" *ngFor="let category of categories">
+                    <a class="nav-link" href="#">{{category.name}}</a>
                 </li>
             </ul>
             <ul class="navbar-nav navbar-right" *ngIf="!identity">
@@ -30,6 +30,11 @@
                 </li>
             </ul>
             <ul class="navbar-nav navbar-right" *ngIf="identity && identity.name">
+                <li *ngIf="identity && identity.image" class="nav-item">
+                    <div class="avatar_mask" >
+                        <img src="{{url + 'user/avatar/' + identity.image}}" class="avatar_nav">
+                    </div>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -37,7 +42,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#">Crear entrada</a>
-                        <a class="dropdown-item" href="#">Crear categoria</a>
+                        <a class="dropdown-item" [routerLink] = "['/crear-categoria']">Crear categoria</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Mi perfil</a>
                         <a class="dropdown-item" [routerLink] = "['/ajustes']">Ajustes</a>
@@ -49,6 +54,13 @@
         <!--Cierra barra navegacion-->
     </nav>
     <!--Contenido-->
+
+    
     <router-outlet></router-outlet>
     <!--Cierra contenedor principal-->
+
+    <hr>
+    <footer>
+        Master en desarrollo web full-stack &copy;
+    </footer>
 </div>

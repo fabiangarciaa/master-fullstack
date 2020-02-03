@@ -51,6 +51,19 @@ export class UserService {
         return this._http.post(this.url + 'login', params, {headers: headers});
     }
 
+    update(token, user): Observable<any> {
+        // tslint:disable-next-line: prefer-const
+        let json = JSON.stringify(user);
+        // tslint:disable-next-line: prefer-const
+        let params = 'json=' + json;
+        // tslint:disable-next-line: prefer-const
+        let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                    .set('Authorization', token);
+
+        // tslint:disable-next-line: object-literal-shorthand
+        return this._http.put(this.url + 'user/update', params, {headers: headers});
+    }
+
     getIdentity() {
         // tslint:disable-next-line: prefer-const
         let identity = JSON.parse(localStorage.getItem('identity'));
