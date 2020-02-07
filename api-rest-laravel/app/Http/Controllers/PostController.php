@@ -30,13 +30,14 @@ class PostController extends Controller {
     }
 
     public function show($id) {
-        $post = Post::find($id)->load('category');
+        $post = Post::find($id)->load('category')
+                               ->load('user');
 
         if (is_object($post)) {
             $data = [
                 'code' => 200,
                 'status' => 'success',
-                'category' => $post
+                'post' => $post
             ];
         } else {
             $data = [
@@ -231,7 +232,7 @@ class PostController extends Controller {
             $data = [
                 'code' => 200,
                 'status' => 'success',
-                'message' => $image_name
+                'image' => $image_name
             ];
         }
         

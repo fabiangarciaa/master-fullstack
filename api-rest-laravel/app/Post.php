@@ -10,7 +10,7 @@ class Post extends Model
     
     
      protected $fillable = [
-        'title', 'content','category_id',
+        'title', 'content','category_id', 'image'
     ];
     
     //Relacion de uno a muchos (y a la inversa)
