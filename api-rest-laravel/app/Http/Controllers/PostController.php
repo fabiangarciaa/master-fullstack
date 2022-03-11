@@ -271,7 +271,7 @@ class PostController extends Controller {
         $posts = Post::where('category_id', $id)->get();
         
         return response()->json([
-            'status' => 'successs',
+            'status' => 'success',
             'posts' => $posts
         ],200);
     }
@@ -281,7 +281,7 @@ class PostController extends Controller {
         $posts = Post::where('user_id', $id)->get();
         
         return response()->json([
-            'status' => 'successs',
+            'status' => 'success',
             'posts' => $posts
         ],200);
     }

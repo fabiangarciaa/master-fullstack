@@ -34,4 +34,18 @@ export class CategoryService {
         return this._http.get(this.url + 'category', {headers: headers});
     }
 
+    getCategory(id): Observable<any> {
+        const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+
+        // tslint:disable-next-line: object-literal-shorthand
+        return this._http.get(this.url + 'category/' + id, {headers: headers});
+    }
+
+    getPosts(id): Observable<any> {
+        const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+
+        // tslint:disable-next-line: object-literal-shorthand
+        return this._http.get(this.url + 'post/category/' + id, {headers: headers});
+    }
+
 }
